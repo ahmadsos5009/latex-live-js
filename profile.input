@@ -1,0 +1,8 @@
+selected_scheme scheme-basic
+collection-latexrecommended 1
+collection-mathscience 1
+TEXDIR /home/peter/workspace/texlive.js/texlive
+TEXMFLOCAL /home/peter/workspace/texlive.js/texlive/texmf-local
+TEXMFSYSVAR /home/peter/workspace/texlive.js/texlive/texmf-var
+TEXMFSYSCONFIG /home/peter/workspace/texlive.js/texlive/texmf-config
+TEXMFVAR /home/peter/workspace/texlive.js/home/texmf-var
