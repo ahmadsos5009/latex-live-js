@@ -1,7 +1,8 @@
 {
-  "name": "test",
+  "name": "tex-live-js",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ahmadsos5009.github.io/latex-live-js",
   "dependencies": {
     "pdfjs-dist": "^3.0.279",
     "react": "^18.2.0",
