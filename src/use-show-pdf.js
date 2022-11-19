@@ -41,7 +41,7 @@ function useShowPdf(pdfRef,setCompilingError){
                 () => setCompilingError(true),
             )
             .catch(() => setCompilingError(true));
-    }, [])
+    }, [setCompilingError,pdfRef])
 }
 
 export default useShowPdf
