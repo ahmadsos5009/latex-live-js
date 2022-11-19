@@ -4,7 +4,7 @@ import { EventBus, PDFViewer } from 'pdfjs-dist/web/pdf_viewer';
 import * as pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry';
 import 'pdfjs-dist/web/pdf_viewer.css';
 
-export default (pdfRef,setCompilingError) => {
+function useShowPdf(pdfRef,setCompilingError){
 
     useEffect(() => {
         GlobalWorkerOptions.workerSrc = pdfjsWorker;
@@ -43,3 +43,5 @@ export default (pdfRef,setCompilingError) => {
             .catch(() => setCompilingError(true));
     }, [])
 }
+
+export default useShowPdf

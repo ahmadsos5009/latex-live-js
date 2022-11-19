@@ -24,7 +24,7 @@ function useCompileLaTex(setCompileError){
         texlive.terminate();
 
         return !pdfDataUrl ? undefined : convertDataURIToBinary(pdfDataUrl);
-    }, []);
+    }, [setCompileError]);
 }
 
 const pdfLoggerInfo = (message) => {

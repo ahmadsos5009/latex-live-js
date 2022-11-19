@@ -41,7 +41,7 @@ function App() {
   const pdfRef = useRef(null);
   const compileLaTex = useCompileLaTex(setCompileError)
   const showPdf = useShowPdf(pdfRef)
-
+  console.log(compileError)
   useEffect(() => {
     window.addEventListener('message', ({ data }) => {
       if (data.type === 'latex-compile'){
@@ -56,7 +56,7 @@ function App() {
       showPdf(pdf)
     }
     compile()
-  }, [])
+  }, [showPdf,compileLaTex])
 
 
   return (
