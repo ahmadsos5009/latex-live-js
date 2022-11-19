@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/latex-live-js/static/css/main.d264a1bb.css",
+    "main.js": "/latex-live-js/static/js/main.ea146d14.js",
+    "index.html": "/latex-live-js/index.html",
+    "main.d264a1bb.css.map": "/latex-live-js/static/css/main.d264a1bb.css.map",
+    "main.ea146d14.js.map": "/latex-live-js/static/js/main.ea146d14.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d264a1bb.css",
+    "static/js/main.ea146d14.js"
+  ]
+}
