@@ -1,10 +1,9 @@
-var TeXLive = function(opt_workerPath) {
+import promise from './promise';
+
+export var TeXLive = function(setCompileError) {
   //var self=this;
   var chunksize= determineChunkSize();
-  if (!opt_workerPath) {
-    opt_workerPath = '';
-  }
-
+  var opt_workerPath = '';
 
   var component = function(workerPath) {
     var self = this;
@@ -13,6 +12,11 @@ var TeXLive = function(opt_workerPath) {
     self.initialized=false;
     self.on_stdout = function(msg) {
       console.log(msg);
+    }
+
+    worker.onerror = function (ev){
+      // TODO:: use error type to show error JSON.stringify({type: 'error', details: ev})
+      setCompileError(true)
     }
 
     self.on_stderr = function(msg) {
@@ -41,6 +45,7 @@ var TeXLive = function(opt_workerPath) {
             console.warn('Unknown worker message '+msg_id+'!');
       }
     }
+
     var onready = new promise.Promise();
     var promises = [];
     var chunkSize = undefined;
@@ -81,7 +86,7 @@ var TeXLive = function(opt_workerPath) {
       function(binary_pdf) {
         if(binary_pdf === false)
           return p.done(false);
-        pdf_dataurl = 'data:application/pdf;charset=binary;base64,' + window.btoa(binary_pdf);
+        global.pdf_dataurl = 'data:application/pdf;charset=binary;base64,' + window.btoa(binary_pdf);
         return p.done(pdf_dataurl);
       });
     return p;
@@ -212,7 +217,7 @@ var TeXLive = function(opt_workerPath) {
     return size;
   };
 
-    curry = function(obj, fn, args) {
+    var curry = function(obj, fn, args) {
     return function() {
       return obj[fn].apply(obj, args);
     }
