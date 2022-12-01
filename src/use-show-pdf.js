@@ -62,7 +62,7 @@ function useShowPdf(pdfRef,setCompilingError,setLoading){
         if (operation === 'out' && scale > MIN_SCALE){
             setScale(toFixed(scale - DELTA));
         }
-    },[pdfViewer,scale])
+    },[scale])
 
     useEffect(() => {
         if (pdfViewer){
