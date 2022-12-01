@@ -70,6 +70,7 @@ function App() {
         case 'zoom-in': setCurrentScale('in'); break;
         case 'zoom-out': setCurrentScale('out'); break;
         case 'download': downloadDocument(); break;
+        default: return;
       }
     };
 
