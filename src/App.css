@@ -1,7 +1,48 @@
 .App {
   text-align: center;
+  height: 100%;
+  width: 100%;
+  background: #D9D9D9 !important;
 }
 
 #viewerContainer {
   position: absolute;
+  background: #D9D9D9 !important;
+}
+
+.pdfViewer .page{
+  background: #D9D9D9 !important;
+}
+
+.loading-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20%;
+  font-size: larger;
+  font-weight: bold;
+  color: #842029;
+}
+
+.error-icon{
+  font-size: 2em;
+  padding: 6px;
+}
+
+.empty-latex-container{
+  display: flex;
+  justify-content: center;
+  padding-top: 20%;
+  align-items: center;
+}
+
+.latex-icon{
+  font-size: 4em;
 }
