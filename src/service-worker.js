@@ -21,7 +21,7 @@ class TexliveCacheStrategy extends Strategy {
     const cache = await caches.open(this.cacheName);
     const cachedResponse = await cache.match(request);
 
-    if (request.headers.has('range')) {
+    if (request.statusCode === 206) {
       return handler.fetch(request);
     }
 
