@@ -2,7 +2,6 @@
   "name": "tex-live-js",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ahmadsos5009.github.io/latex-live-js",
   "dependencies": {
     "pdfjs-dist": "^3.0.279",
     "react": "^18.2.0",
@@ -11,6 +10,7 @@
     "workbox-cacheable-response": "^6.5.4",
     "workbox-core": "^6.5.4",
     "workbox-precaching": "^6.5.4",
+    "workbox-range-requests": "^6.5.4",
     "workbox-routing": "^6.5.4",
     "workbox-strategies": "^6.5.4"
   },
