@@ -10,9 +10,8 @@
 import { clientsClaim } from 'workbox-core';
 import { precacheAndRoute } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
-import { Strategy, CacheFirst } from 'workbox-strategies';
-import { createPartialResponse, RangeRequestsPlugin,  } from 'workbox-range-requests';
-import { CacheableResponsePlugin } from 'workbox-cacheable-response';
+import { Strategy } from 'workbox-strategies';
+import { createPartialResponse  } from 'workbox-range-requests';
 
 clientsClaim();
 
