@@ -22,13 +22,24 @@ class TexliveCacheStrategy extends Strategy {
     const cache = await caches.open(this.cacheName);
     const cachedResponse = await cache.match(request);
 
-    return cachedResponse || fetch(request).then((async fetchedResponse => {
-      if (request.headers.get('range')){
-        return await createPartialResponse(request, fetchedResponse)
+    // get full range request data, to store it in cache
+    // if we have request in the cache return Partial Response we expected
+    if (request.headers.get('range')) {
+      const cachedPartialResponse = await cache.match(request.url);
+      if (cachedPartialResponse){
+        return await createPartialResponse(request, cachedPartialResponse)
+      } else {
+        const response = await fetch(request.url);
+        await cache.put(request.url, response.clone())
+        return await createPartialResponse(request, response);
       }
-      await cache.put(request, fetchedResponse.clone());
-      return fetchedResponse;
-    }))
+    } else {
+    //  normal flow
+      return cachedResponse || fetch(request).then((async fetchedResponse => {
+        await cache.put(request, fetchedResponse.clone());
+        return fetchedResponse;
+      }))
+    }
   }
 }
 
