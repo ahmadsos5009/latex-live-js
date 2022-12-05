@@ -11,38 +11,7 @@ export const dispatch = (command) => {
 }
 
 function App() {
-  const [latexSource, setLatexSource] = useState( '\n' +
-      '\\documentclass[12pt]{article}\n' +
-      '\\usepackage{amsmath}\n' +
-      '\\usepackage{graphicx}\n' +
-      '\n' +
-      '\\title{\\TeX live.js}\n' +
-      '\\author{Created by Manuel Sch\\"olling}\n' +
-      '\\date{\\today}\n' +
-      '\\begin{document}\n' +
-      '  \\maketitle\n' +
-      '  \\TeX{}live.js is a compiler for the \\TeX{}\n' +
-      '  typesetting program created using Mozilla\'s Emscripten\n' +
-      '  Compiler. It offers programmable desktop\n' +
-      '  publishing features and extensive facilities for\n' +
-      '  automating most aspects of typesetting and desktop\n' +
-      '  publishing, including numbering and cross-referencing,\n' +
-      '  tables and figures, page layout, bibliographies, and\n' +
-      '  much more. It supports \\LaTeX{} which was originally written \n' +
-      '  in 1984 by Leslie Lamport and has become the dominant method for\n' +
-      '  using \\TeX;\n' +
-      ' \n' +
-      '  % This is a comment, not shown in final output.\n' +
-      '  % The following shows typesetting power of LaTeX:\n' +
-      '  \\begin{align}\n' +
-      '    E_0 &= mc^2                              \\\\\n' +
-      '    E &= \\frac{mc^2}{\\sqrt{1-\\frac{v^2}{c^2}}}\n' +
-      '  \\end{align}\n' +
-      '\n' +
-      '\\end{document} \n' +
-      '  \n' +
-      '  \n' +
-      '  ');
+  const [latexSource, setLatexSource] = useState( undefined);
   const [compileError, setCompileError] = useState(false);
   const [isCompiling, setIsCompiling] = useState(false);
 
@@ -96,7 +65,6 @@ function App() {
     const compile = async () => {
       setCompileError(false)
       setIsCompiling(true)
-      console.log(latexSource)
       const pdf = await compileLaTex(latexSource)
       showPdf(pdf)
     }

@@ -1,17 +1,11 @@
 /* eslint-disable no-restricted-globals */
 
-// This service worker can be customized!
-// See https://developers.google.com/web/tools/workbox/modules
-// for the list of available Workbox modules, or add any other
-// code you'd like.
-// You can also remove this file if you'd prefer not to use a
-// service worker, and the Workbox build step will be skipped.
-
 import { clientsClaim } from 'workbox-core';
 import { precacheAndRoute } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { Strategy } from 'workbox-strategies';
 import { createPartialResponse  } from 'workbox-range-requests';
+import { ExpirationPlugin } from 'workbox-expiration';
 
 clientsClaim();
 
@@ -20,10 +14,10 @@ precacheAndRoute(self.__WB_MANIFEST);
 class TexliveCacheStrategy extends Strategy {
   async _handle(request, handler) {
     const cache = await caches.open(this.cacheName);
-    const cachedResponse = await cache.match(request);
 
-    // get full range request data, to store it in cache
-    // if we have request in the cache return Partial Response we expected
+    /**
+     * will cache full data of range request to use it later for partial response
+     */
     if (request.headers.get('range')) {
       const cachedPartialResponse = await cache.match(request.url);
       if (cachedPartialResponse){
@@ -34,7 +28,8 @@ class TexliveCacheStrategy extends Strategy {
         return await createPartialResponse(request, response);
       }
     } else {
-    //  normal flow
+      const cachedResponse = await cache.match(request);
+
       return cachedResponse || fetch(request).then((async fetchedResponse => {
         await cache.put(request, fetchedResponse.clone());
         return fetchedResponse;
@@ -49,31 +44,9 @@ registerRoute(/(pdftex|bibtex|service)-worker.js/, new TexliveCacheStrategy({
 
 registerRoute(/(texlive\/.*)|texlive.lst/, new TexliveCacheStrategy({
   cacheName: 'texlive',
-  // plugins: [
-  //   new CacheableResponsePlugin({ statuses: [200] }),
-  //   new RangeRequestsPlugin()
-  // ]
-  // plugins: [
-  //   {
-  //     cacheWillUpdate: async ({ response }) => {
-  //       if (response.status === 200) return response;
-  //       console.log(response.status,response.headers.get('content-encoding'))
-  //       // Content encoding shouldn't be set, or content-type will be inaccurate
-  //       if (response.status === 206 && !response.headers.get('content-encoding')) {
-  //         const contentLength = parseInt(response.headers.get('content-length'));
-  //         if (
-  //             `bytes 0-${contentLength - 1}/${contentLength}` ===
-  //             response.headers.get('content-range')
-  //         ) {
-  //           // Convert response from 206 -> 200 to make it cacheable
-  //           return new Response(response.body, { status: 200, headers: response.headers });
-  //         }
-  //       }
-  //
-  //       return null;
-  //     }
-  //   }
-  // ]
+  plugins: [
+      new ExpirationPlugin({maxEntries: 30})
+  ]
 }))
 
 // This allows the web app to trigger skipWaiting via
