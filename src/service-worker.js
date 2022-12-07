@@ -28,10 +28,10 @@ class TexliveCacheStrategy extends Strategy {
         return await createPartialResponse(request, response);
       }
     } else {
-      const cachedResponse = await cache.match(request);
+      const cachedResponse = await cache.match(request.url);
 
       return cachedResponse || fetch(request).then((async fetchedResponse => {
-        await cache.put(request, fetchedResponse.clone());
+        await cache.put(request.url, fetchedResponse.clone());
         return fetchedResponse;
       }))
     }
@@ -45,9 +45,16 @@ registerRoute(/(pdftex|bibtex|service)-worker.js/, new TexliveCacheStrategy({
 registerRoute(/(texlive\/.*)|texlive.lst/, new TexliveCacheStrategy({
   cacheName: 'texlive',
   plugins: [
-      new ExpirationPlugin({maxEntries: 30})
+      new ExpirationPlugin({maxEntries: 2})
   ]
 }))
+
+registerRoute(/(texlive\/.*)|texlive.lst/, new TexliveCacheStrategy({
+  cacheName: 'texlive-head',
+  plugins: [
+    new ExpirationPlugin({maxEntries: 2})
+  ]
+}), 'HEAD')
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
