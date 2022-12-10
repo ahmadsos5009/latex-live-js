@@ -87,7 +87,7 @@ registerRoute(/(texlive\/.*)|texlive.lst/, new TexliveCacheStrategy({
       maxEntries: 128,
     })
   ]
-}), 'HEAD')
+}))
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
