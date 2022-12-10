@@ -101,6 +101,6 @@ self.addEventListener('install', async (event) => {
   await caches.delete(config.WORKER_CACHE)
   await caches.delete(config.TEXLIVE_CACHE)
   await caches.delete(config.TEXLIVE_HEAD_CACHE)
-  console.log("Clean up", config.WORKER_VERSION)
+
   self.skipWaiting();
 })
