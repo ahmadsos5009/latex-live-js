@@ -61,10 +61,11 @@ function App() {
     if (!latexSource){
       return
     }
-    console.log(latexSource)
+
     const compile = async () => {
       setCompileError(false)
       setIsCompiling(true)
+      console.log(latexSource)
       const pdf = await compileLaTex(latexSource)
       showPdf(pdf)
     }
