@@ -61,7 +61,7 @@ function App() {
     if (!latexSource){
       return
     }
-
+    console.log(latexSource)
     const compile = async () => {
       setCompileError(false)
       setIsCompiling(true)
